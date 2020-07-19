@@ -4,7 +4,7 @@ namespace AdventOfCode2019
 {
     public class IntCodeComputer : IIntCodeComputer
     {
-        private int[] _programCode;
+        public int[] _programCode;
         private int[] _originalProgramCode;
 
         public IntCodeComputer(int[] programCode)

@@ -7,10 +7,10 @@ namespace AdventOfCode2019
     {
         static void Main(string[] args)
         {
-            ISolution solution = new Day2();
+            ISolution solution = new Day2("../inputs/Day2.txt");
 
-            solution.Part1("../inputs/Day2.txt");
-            solution.Part2("../inputs/Day2.txt");
+            solution.RunPart1();
+            solution.RunPart2();
         }
     }
 }

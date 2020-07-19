@@ -2,8 +2,8 @@ namespace AdventOfCode2019
 {
     public interface ISolution
     {
-        void Part1(string inputLocation);
+        void RunPart1();
 
-        void Part2(string inputLocation);
+        void RunPart2();
     }
 }

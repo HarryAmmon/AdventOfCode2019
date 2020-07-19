@@ -5,9 +5,14 @@ namespace AdventOfCode2019
 {
     public class Day2 : ISolution
     {
-        public void Part1(string inputLocation)
+        private string _inputLocation;
+        public Day2(string inputLocation)
         {
-            int[] programCode = GetIntArrayFromInput(inputLocation);
+            _inputLocation = inputLocation;
+        }
+        public void RunPart1()
+        {
+            int[] programCode = GetIntArrayFromInput(_inputLocation);
 
             IIntCodeComputer computer = new IntCodeComputer(programCode);
             var result = computer.RunProgramCode(12, 2);
@@ -15,9 +20,9 @@ namespace AdventOfCode2019
             Console.WriteLine($"Program result: {result}");
         }
 
-        public void Part2(string inputLocation)
+        public void RunPart2()
         {
-            int[] programCode = GetIntArrayFromInput(inputLocation);
+            int[] programCode = GetIntArrayFromInput(_inputLocation);
 
             IIntCodeComputer computer = new IntCodeComputer(programCode);
             for (int noun = 1; noun < 99; noun++)

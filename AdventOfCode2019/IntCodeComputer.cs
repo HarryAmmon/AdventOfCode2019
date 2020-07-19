@@ -1,3 +1,5 @@
+using System;
+
 namespace AdventOfCode2019
 {
     public class IntCodeComputer : IIntCodeComputer
@@ -7,30 +9,40 @@ namespace AdventOfCode2019
         {
             _programCode = programCode;
         }
-
+        public int[] RunProgramCode()
+        {
+            for (int i = 0; i < _programCode.Length; i += 4)
+            {
+                if (_programCode[i] == 99)
+                {
+                    break;
+                }
+                switch (_programCode[i])
+                {
+                    case 1:
+                        Addition(_programCode[i + 1], _programCode[i + 2], _programCode[i + 3]);
+                        break;
+                    case 2:
+                        Multiplication(_programCode[i + 1], _programCode[i + 2], _programCode[i + 3]);
+                        break;
+                }
+            }
+            return _programCode;
+        }
         public int Addition(int inputLocationOne, int inputLocationTwo, int outputLocation)
         {
-            int valueOnePosition = _programCode[inputLocationOne];
-            int valueTwoPosition = _programCode[inputLocationTwo];
-            int outputPosition = _programCode[outputLocation];
 
-            _programCode[outputPosition] = _programCode[valueOnePosition] + _programCode[valueTwoPosition];
-            return _programCode[outputPosition];
+            _programCode[outputLocation] = _programCode[inputLocationOne] + _programCode[inputLocationTwo];
+            return _programCode[outputLocation];
         }
 
         public int Multiplication(int inputLocationOne, int inputLocationTwo, int outputLocation)
         {
-            int valueOnePosition = _programCode[inputLocationOne];
-            int valueTwoPosition = _programCode[inputLocationTwo];
-            int outputPosition = _programCode[outputLocation];
+            _programCode[outputLocation] = _programCode[inputLocationOne] * _programCode[inputLocationTwo];
 
-            _programCode[outputPosition] = _programCode[inputLocationOne] * _programCode[inputLocationTwo];
-            return _programCode[outputPosition];
+            return _programCode[outputLocation];
         }
 
-        public int RunProgramCode()
-        {
-            return _programCode[0];
-        }
+
     }
 }

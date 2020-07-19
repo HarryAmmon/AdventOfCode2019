@@ -10,7 +10,7 @@ namespace AdventOfCode2019
             ISolution solution = new Day3("../inputs/Day3.txt");
 
             solution.RunPart1();
-            solution.RunPart2();
+            // solution.RunPart2();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using AdventOfCode2019.Entities;
 
 namespace AdventOfCode2019
 {
@@ -13,7 +14,8 @@ namespace AdventOfCode2019
 
         public void RunPart1()
         {
-            Console.WriteLine(10 - 20);
+            Wire wire1 = new Wire();
+            Wire wire2 = new Wire();
         }
 
         public void RunPart2()

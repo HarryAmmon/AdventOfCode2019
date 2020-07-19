@@ -5,10 +5,16 @@ namespace AdventOfCode2019
 {
     public class Day1 : ISolution
     {
-        public void Part2(string inputLocation)
+        private string _inputLocation;
+        public Day1(string inputLocation)
+        {
+            _inputLocation = inputLocation;
+        }
+
+        public void RunPart2()
         {
             IFuelCalculator fuelCalc = new FuelCalculator();
-            string[] inputContent = File.ReadAllLines(inputLocation);
+            string[] inputContent = File.ReadAllLines(_inputLocation);
             int totalFuel = 0;
             foreach (string line in inputContent)
             {
@@ -17,10 +23,10 @@ namespace AdventOfCode2019
             Console.WriteLine($"Fuel required: {totalFuel} ");
         }
 
-        public void Part1(string inputLocation)
+        public void RunPart1()
         {
             IFuelCalculator fuelCalc = new FuelCalculator();
-            string[] inputContent = File.ReadAllLines(inputLocation);
+            string[] inputContent = File.ReadAllLines(_inputLocation);
 
             int newTotalFuel = 0;
             int totalFuel = 0;

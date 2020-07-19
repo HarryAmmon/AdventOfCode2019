@@ -5,21 +5,41 @@ namespace AdventOfCode2019
 {
     public class Day2 : ISolution
     {
-        public void Part1(string inputLocation)
+        private string _inputLocation;
+        public Day2(string inputLocation)
         {
-            int[] programCode = GetIntArrayFromInput(inputLocation);
-            programCode[1] = 12;
-            programCode[2] = 2;
+            _inputLocation = inputLocation;
+        }
+        public void RunPart1()
+        {
+            int[] programCode = GetIntArrayFromInput(_inputLocation);
 
             IIntCodeComputer computer = new IntCodeComputer(programCode);
-            var result = computer.RunProgramCode();
+            var result = computer.RunProgramCode(12, 2);
 
-            Console.WriteLine($"Program result: {result[0]}");
+            Console.WriteLine($"Program result: {result}");
         }
 
-        public void Part2(string inputLocation)
+        public void RunPart2()
         {
-            throw new System.NotImplementedException();
+            int[] programCode = GetIntArrayFromInput(_inputLocation);
+
+            IIntCodeComputer computer = new IntCodeComputer(programCode);
+            for (int noun = 1; noun < 99; noun++)
+            {
+                for (int verb = 1; verb < 99; verb++)
+                {
+                    computer.ResetProgramCode();
+                    int result = computer.RunProgramCode(noun, verb);
+                    if (result == 19690720)
+                    {
+                        Console.WriteLine($"Program result: {100 * noun + verb}");
+                        Console.WriteLine($"Noun: {noun}");
+                        Console.WriteLine($"Verb: {verb}");
+                        break;
+                    }
+                }
+            }
         }
 
         private int[] GetIntArrayFromInput(string inputLocation)

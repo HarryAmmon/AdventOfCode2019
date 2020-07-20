@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using AdventOfCode2019.Entities;
+using System.Text.RegularExpressions;
 
 namespace AdventOfCode2019
 {
@@ -14,8 +14,19 @@ namespace AdventOfCode2019
 
         public void RunPart1()
         {
-            Wire wire1 = new Wire();
-            Wire wire2 = new Wire();
+            string[] wireOneInstructions = _fileInput[0].Split(',');
+            string[] wireTwoInstructions = _fileInput[1].Split(',');
+            string pattern = @"([RULD])";
+
+            foreach (string item in wireOneInstructions)
+            {
+                string[] instruction = Regex.Split(item, pattern);
+                foreach (string i in instruction)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+            // Wire wire2 = new Wire();
         }
 
         public void RunPart2()

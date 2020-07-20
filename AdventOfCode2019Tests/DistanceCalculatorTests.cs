@@ -1,6 +1,7 @@
 using AdventOfCode2019;
 using AdventOfCode2019.Entities;
 using Xunit;
+
 namespace AdventOfCode2019Tests
 {
     public class DistanceCalculatorTests

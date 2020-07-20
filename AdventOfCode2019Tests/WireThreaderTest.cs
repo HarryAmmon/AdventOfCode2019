@@ -1,4 +1,3 @@
-using System;
 using AdventOfCode2019;
 using AdventOfCode2019.Entities;
 using Xunit;

@@ -11,5 +11,26 @@ namespace AdventOfCode2019
         {
             _wire = wire;
         }
+
+        public Coordinate ThreadX(int vector)
+        {
+            RecordCurrentPosition();
+
+            _wire.currentPosition.x += vector;
+            return _wire.currentPosition;
+        }
+
+        public Coordinate ThreadY(int vector)
+        {
+            RecordCurrentPosition();
+
+            _wire.currentPosition.y += vector;
+            return _wire.currentPosition;
+        }
+
+        private void RecordCurrentPosition()
+        {
+            _wire.previousPositions.Add(_wire.currentPosition);
+        }
     }
 }

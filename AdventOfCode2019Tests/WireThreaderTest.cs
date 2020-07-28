@@ -41,5 +41,39 @@ namespace AdventOfCode2019Tests
             // Arrange
             Assert.Equal(expectedYPosition, currentLocation.y);
         }
+
+        [Theory]
+        [InlineData("R123", "R")]
+        [InlineData("L123", "L")]
+        [InlineData("U123", "U")]
+        [InlineData("D123", "D")]
+        public void Decoding_Instruction_Returns_Direction(string instruction, string expectedDirection)
+        {
+            // Arrange
+            IWireThreader wireThreader = new WireThreader(_wire);
+
+            // Act
+            Vector vector = wireThreader.Decode(instruction);
+
+            // Assert
+            Assert.Equal(expectedDirection, vector.Direction);
+        }
+
+        [Theory]
+        [InlineData("R123", 123)]
+        [InlineData("L124", 124)]
+        [InlineData("U125", 125)]
+        [InlineData("D126", 126)]
+        public void Decoding_Instruction_Returns_Magnitude(string instruction, int expectedMagnitude)
+        {
+            // Arrange
+            IWireThreader wireThreader = new WireThreader(_wire);
+
+            // Act
+            Vector vector = wireThreader.Decode(instruction);
+
+            // Assert
+            Assert.Equal(expectedMagnitude, vector.Magnitude);
+        }
     }
 }

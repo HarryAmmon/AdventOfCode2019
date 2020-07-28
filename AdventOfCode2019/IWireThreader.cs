@@ -6,5 +6,6 @@ namespace AdventOfCode2019
     {
         Coordinate ThreadX(int vector);
         Coordinate ThreadY(int vector);
+        Vector Decode(string instruction);
     }
 }

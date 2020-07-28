@@ -1,3 +1,5 @@
+using System;
+using System.Text.RegularExpressions;
 using AdventOfCode2019;
 using AdventOfCode2019.Entities;
 
@@ -10,6 +12,21 @@ namespace AdventOfCode2019
         public WireThreader(Wire wire)
         {
             _wire = wire;
+        }
+
+        public Vector Decode(string instruction)
+        {
+            string directionPattern = @"([URDL])";
+            string magnitudePattern = @"([0-9]+)";
+
+            Match directionResult = Regex.Match(instruction, directionPattern);
+            Match magnitudeResult = Regex.Match(instruction, magnitudePattern);
+
+            if (directionResult.Success && magnitudeResult.Success)
+            {
+                return new Vector(directionResult.Value, int.Parse(magnitudeResult.Value));
+            }
+            return null;
         }
 
         public Coordinate ThreadX(int vector)

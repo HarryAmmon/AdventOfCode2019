@@ -14,14 +14,30 @@ namespace AdventOfCode2019Tests
 
         [Theory]
         [InlineData(2, 2)]
-        [InlineData(-10, -10)]
-        public void Can_Thread_Wire_X_Direction(int vector, int expectedXPosition)
+        [InlineData(10, 10)]
+        public void Can_Thread_Wire_X_Positive_Direction(int magnitude, int expectedXPosition)
         {
             // Arrange
             IWireThreader wireThreader = new WireThreader(_wire);
 
             // Act
-            Coordinate currentLocation = wireThreader.ThreadX(vector);
+            Coordinate currentLocation = wireThreader.ThreadXPositive(magnitude);
+
+            // Assert
+            Assert.Equal(expectedXPosition, _wire.currentPosition.x);
+        }
+
+
+        [Theory]
+        [InlineData(2, -2)]
+        [InlineData(10, -10)]
+        public void Can_Thread_Wire_X_Negative_Direction(int magnitude, int expectedXPosition)
+        {
+            // Arrange
+            IWireThreader wireThreader = new WireThreader(_wire);
+
+            // Act
+            Coordinate currentLocation = wireThreader.ThreadXNegative(magnitude);
 
             // Assert
             Assert.Equal(expectedXPosition, _wire.currentPosition.x);
@@ -29,14 +45,29 @@ namespace AdventOfCode2019Tests
 
         [Theory]
         [InlineData(2, 2)]
-        [InlineData(-10, -10)]
-        public void Can_Thread_Wire_Y_Direction(int vector, int expectedYPosition)
+        [InlineData(10, 10)]
+        public void Can_Thread_Wire_Y_Positive_Direction(int magnitude, int expectedYPosition)
         {
             // Arrange
             IWireThreader wireThreader = new WireThreader(_wire);
 
             // Act
-            Coordinate currentLocation = wireThreader.ThreadY(vector);
+            Coordinate currentLocation = wireThreader.ThreadYPositive(magnitude);
+
+            // Arrange
+            Assert.Equal(expectedYPosition, currentLocation.y);
+        }
+
+        [Theory]
+        [InlineData(2, -2)]
+        [InlineData(10, -10)]
+        public void Can_Thread_Wire_Y_Negative_Direction(int magnitude, int expectedYPosition)
+        {
+            // Arrange
+            IWireThreader wireThreader = new WireThreader(_wire);
+
+            // Act
+            Coordinate currentLocation = wireThreader.ThreadYNegative(magnitude);
 
             // Arrange
             Assert.Equal(expectedYPosition, currentLocation.y);
@@ -50,10 +81,10 @@ namespace AdventOfCode2019Tests
         public void Decoding_Instruction_Returns_Direction(string instruction, string expectedDirection)
         {
             // Arrange
-            IWireThreader wireThreader = new WireThreader(_wire);
+            IInstructionDecoder decoder = new InstructionDecoder();
 
             // Act
-            Vector vector = wireThreader.Decode(instruction);
+            Vector vector = decoder.VectorDecoder(instruction);
 
             // Assert
             Assert.Equal(expectedDirection, vector.Direction);
@@ -67,13 +98,33 @@ namespace AdventOfCode2019Tests
         public void Decoding_Instruction_Returns_Magnitude(string instruction, int expectedMagnitude)
         {
             // Arrange
-            IWireThreader wireThreader = new WireThreader(_wire);
+            IInstructionDecoder decoder = new InstructionDecoder();
 
             // Act
-            Vector vector = wireThreader.Decode(instruction);
+            Vector vector = decoder.VectorDecoder(instruction);
 
             // Assert
             Assert.Equal(expectedMagnitude, vector.Magnitude);
+        }
+
+        [Theory]
+        [InlineData("L", 10, -10, 0)]
+        [InlineData("R", 10, 10, 0)]
+        [InlineData("U", 10, 0, 10)]
+        [InlineData("D", 10, 0, -10)]
+        public void WireThreader_Threads_Correct_Direction_Given_Vector(string direction, int magnitude, int expectedX, int expectedY)
+        {
+            // Arrange
+            IWireThreader wireThreader = new WireThreader(_wire);
+            Vector vector = new Vector(direction, magnitude);
+            Coordinate coord = new Coordinate(expectedX, expectedY);
+
+            // Act
+            Coordinate result = wireThreader.Thread(vector);
+
+            // Assert
+            Assert.Equal(coord.x, result.x);
+            Assert.Equal(coord.y, result.y);
         }
     }
 }

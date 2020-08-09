@@ -14,40 +14,78 @@ namespace AdventOfCode2019
             _wire = wire;
         }
 
-        public Vector Decode(string instruction)
+        public Coordinate Thread(Vector[] vectors)
         {
-            string directionPattern = @"([URDL])";
-            string magnitudePattern = @"([0-9]+)";
-
-            Match directionResult = Regex.Match(instruction, directionPattern);
-            Match magnitudeResult = Regex.Match(instruction, magnitudePattern);
-
-            if (directionResult.Success && magnitudeResult.Success)
+            foreach (Vector vector in vectors)
             {
-                return new Vector(directionResult.Value, int.Parse(magnitudeResult.Value));
+                Thread(vector);
             }
-            return null;
-        }
-
-        public Coordinate ThreadX(int vector)
-        {
-            RecordCurrentPosition();
-
-            _wire.currentPosition.x += vector;
             return _wire.currentPosition;
         }
 
-        public Coordinate ThreadY(int vector)
+        public Coordinate Thread(Vector vector)
         {
-            RecordCurrentPosition();
+            switch (vector.Direction)
+            {
+                case "L":
+                    return ThreadXNegative(vector.Magnitude);
+                case "R":
+                    return ThreadXPositive(vector.Magnitude);
+                case "U":
+                    return ThreadYPositive(vector.Magnitude);
+                case "D":
+                    return ThreadYNegative(vector.Magnitude);
+                default:
+                    throw new Exception("Invalid vector");
+            }
+        }
 
-            _wire.currentPosition.y += vector;
+        public Coordinate ThreadXNegative(int vector)
+        {
+            for (int i = 0; i < Math.Abs(vector); i++)
+            {
+                RecordCurrentPosition();
+                _wire.currentPosition.x -= 1;
+            }
+
+            return _wire.currentPosition;
+        }
+
+        public Coordinate ThreadXPositive(int vector)
+        {
+            for (int i = 0; i < vector; i++)
+            {
+                RecordCurrentPosition();
+                _wire.currentPosition.x += 1;
+            }
+            return _wire.currentPosition;
+        }
+
+        public Coordinate ThreadYNegative(int vector)
+        {
+            for (int i = 0; i < Math.Abs(vector); i++)
+            {
+                RecordCurrentPosition();
+                _wire.currentPosition.y -= 1;
+            }
+
+            return _wire.currentPosition;
+        }
+
+        public Coordinate ThreadYPositive(int vector)
+        {
+            for (int i = 0; i < vector; i++)
+            {
+                RecordCurrentPosition();
+                _wire.currentPosition.y += 1;
+            }
             return _wire.currentPosition;
         }
 
         private void RecordCurrentPosition()
         {
-            _wire.previousPositions.Add(_wire.currentPosition);
+            Coordinate currentPosition = new Coordinate(_wire.currentPosition.x, _wire.currentPosition.y);
+            _wire.previousPositions.Add(currentPosition);
         }
     }
 }

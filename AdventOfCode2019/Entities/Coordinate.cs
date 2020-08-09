@@ -9,5 +9,10 @@ namespace AdventOfCode2019.Entities
             x = xPoisition;
             y = yPosition;
         }
+
+        public string toString()
+        {
+            return $"({x},{y})";
+        }
     }
 }
